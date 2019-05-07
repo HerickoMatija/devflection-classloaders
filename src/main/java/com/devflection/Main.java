@@ -1,6 +1,7 @@
 package com.devflection;
 
-import com.devflection.persistance.ConnectionManager;
+import com.devflection.persistance.ClassDAO;
+import com.devflection.persistance.HSQLDBConnectionManager;
 import com.devflection.system.MyAppClass1;
 import com.devflection.system.MyAppClass2;
 import com.devflection.system.MyAppClass3;
@@ -8,18 +9,23 @@ import com.sun.java.accessibility.AccessBridge;
 import com.sun.javafx.util.Logging;
 import jdk.internal.dynalink.DynamicLinker;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
 public class Main {
 
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) {
         if (args.length > 0) {
             exampleClassLoaderInfo();
         }
 
-        ConnectionManager.connect();
+        Connection connection = HSQLDBConnectionManager.connect();
+
+        new ClassDAO(connection).createClassTable();
+
+        System.out.println();
     }
 
     private static void exampleClassLoaderInfo() {
