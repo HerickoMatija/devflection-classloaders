@@ -1,5 +1,6 @@
 package com.devflection;
 
+import com.devflection.persistance.ConnectionManager;
 import com.devflection.system.MyAppClass1;
 import com.devflection.system.MyAppClass2;
 import com.devflection.system.MyAppClass3;
@@ -13,8 +14,15 @@ import java.util.HashSet;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
+        if (args.length > 0) {
+            exampleClassLoaderInfo();
+        }
 
+        ConnectionManager.connect();
+    }
+
+    private static void exampleClassLoaderInfo() {
         System.out.println(ArrayList.class.getClassLoader()); // prints null
         System.out.println(HashMap.class.getClassLoader()); // prints null
         System.out.println(HashSet.class.getClassLoader()); // prints null
