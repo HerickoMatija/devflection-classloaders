@@ -13,8 +13,8 @@ public class HSQLDBConnectionManager {
         try {
             // Load the driver that is included in the HSQLDB jar
             Class.forName("org.hsqldb.jdbc.JDBCDriver");
-        } catch (ClassNotFoundException e1) {
-            throw new IllegalStateException("Could not load HSQLDB JDBCDriver.");
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("Could not load HSQLDB JDBCDriver.", e);
         }
 
         Connection connection;
