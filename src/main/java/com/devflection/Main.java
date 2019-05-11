@@ -12,10 +12,14 @@ public class Main {
     public static final String FULL_CLASS_NAME = "com.devflection.example.db.ClassFromDatabase";
 
     public static void main(String[] args) throws IOException {
+        // First we setup the HSQLDB and load the class into the DB
         ClassDAO.getInstance().setup();
+
+        // Try loading the class using the system class loader
         boolean result = loadWithClassLoader(ClassLoader.getSystemClassLoader());
         System.out.println("Result of loading with the system class loader is " + result);
 
+        // Try loading the class using our class loader
         result = loadWithClassLoader(new DevflectionClassLoader());
         System.out.println("Result of loading with our class loader is " + result);
     }
