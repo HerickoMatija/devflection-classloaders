@@ -1,4 +1,4 @@
-package com.devflection.persistance;
+package com.devflection.persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

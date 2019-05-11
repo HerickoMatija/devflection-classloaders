@@ -1,6 +1,6 @@
 package com.devflection.classloader;
 
-import com.devflection.persistance.ClassDAO;
+import com.devflection.persistence.ClassDAO;
 
 public class DevflectionClassLoader extends ClassLoader {
 

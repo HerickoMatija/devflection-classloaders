@@ -1,6 +1,4 @@
-package com.devflection.persistance;
-
-import com.devflection.Main;
+package com.devflection.persistence;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -11,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static com.devflection.Main.FULL_CLASS_NAME;
 

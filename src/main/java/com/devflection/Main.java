@@ -1,7 +1,7 @@
 package com.devflection;
 
 import com.devflection.classloader.DevflectionClassLoader;
-import com.devflection.persistance.ClassDAO;
+import com.devflection.persistence.ClassDAO;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
