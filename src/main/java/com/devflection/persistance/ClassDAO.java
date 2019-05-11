@@ -1,11 +1,19 @@
 package com.devflection.persistance;
 
+import com.devflection.Main;
+
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.concurrent.atomic.AtomicReference;
+
+import static com.devflection.Main.FULL_CLASS_NAME;
 
 public class ClassDAO {
 
@@ -16,9 +24,31 @@ public class ClassDAO {
     private static final String FIND_BY_NAME = "SELECT data FROM classes WHERE className = ?";
 
     private Connection connection;
+    private static final ClassDAO INSTANCE = new ClassDAO();
 
-    public ClassDAO(Connection connection) {
-        this.connection = connection;
+    private ClassDAO() {
+        this.connection = HSQLDBConnectionManager.connect();
+    }
+
+    public static ClassDAO getInstance() {
+        return INSTANCE;
+    }
+
+    /**
+     * This method creates the table for storing classes in the HSQLDB and also inserts the test class file that is in this project.
+     * @throws IOException
+     */
+    public void setup() throws IOException {
+        createClassTable();
+
+        byte[] classFromDB = getClassFromDB(FULL_CLASS_NAME);
+
+        if (classFromDB == null || classFromDB.length==0) {
+
+            byte[] bytes = Files.readAllBytes(Paths.get("classes/ClassFromDatabase.class"));
+
+            ClassDAO.getInstance().insertClassToDB(FULL_CLASS_NAME, bytes);
+        }
     }
 
     public boolean createClassTable() {
