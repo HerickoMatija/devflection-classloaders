@@ -9,11 +9,9 @@ import java.lang.reflect.Method;
 
 public class Main {
 
-    public static final String FULL_CLASS_NAME = "com.devflection.example.db.ClassFromDatabase";
-
     public static void main(String[] args) throws IOException {
         // First we setup the HSQLDB and load the class into the DB
-        ClassDAO.getInstance().setup();
+        ClassDAO.setup();
 
         // Try loading the class using the system class loader
         boolean result = loadWithClassLoader(ClassLoader.getSystemClassLoader());
@@ -27,7 +25,7 @@ public class Main {
     private static boolean loadWithClassLoader(ClassLoader classLoader) {
         try {
             // we try to load the example class using the passed in loader
-            Class<?> classFromDatabase = Class.forName(FULL_CLASS_NAME, true, classLoader);
+            Class<?> classFromDatabase = Class.forName("com.devflection.example.db.ClassFromDatabase", true, classLoader);
 
             // we create a new instance of the class
             Object instance = classFromDatabase.newInstance();
@@ -44,7 +42,7 @@ public class Main {
 
             return true;
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException | ClassNotFoundException e) {
-            System.out.println("Could not load class " + FULL_CLASS_NAME + " with classloader " + classLoader.toString());
+            System.out.println("Could not load class com.devflection.example.db.ClassFromDatabase with classloader " + classLoader.toString());
             return false;
         }
     }

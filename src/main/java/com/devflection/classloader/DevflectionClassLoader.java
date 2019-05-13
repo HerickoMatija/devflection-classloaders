@@ -6,7 +6,7 @@ public class DevflectionClassLoader extends ClassLoader {
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
-        byte[] classFromDB = ClassDAO.getInstance().getClassFromDB(name);
+        byte[] classFromDB = ClassDAO.getClassFromDB(name);
 
         if (classFromDB != null && classFromDB.length > 0) {
             return defineClass(name, classFromDB, 0, classFromDB.length);
