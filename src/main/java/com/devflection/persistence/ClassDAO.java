@@ -34,13 +34,13 @@ public class ClassDAO {
     public static void setup() throws IOException {
         createClassTable();
 
-        byte[] classFromDB = getClassFromDB("com.devflection.example.db.ClassFromDatabase");
+        byte[] classFromDB = getClass("com.devflection.example.db.ClassFromDatabase");
 
         if (classFromDB == null || classFromDB.length == 0) {
 
             byte[] bytes = Files.readAllBytes(Paths.get("classes/ClassFromDatabase.class"));
 
-            insertClassToDB("com.devflection.example.db.ClassFromDatabase", bytes);
+            insertClass("com.devflection.example.db.ClassFromDatabase", bytes);
         }
     }
 
@@ -56,7 +56,7 @@ public class ClassDAO {
         return true;
     }
 
-    public static boolean insertClassToDB(String className, byte[] data) {
+    public static boolean insertClass(String className, byte[] data) {
         try (Connection connection = DriverManager.getConnection(DB_CONNECTION, DB_USERNAME, DB_PASSWORD)) {
             PreparedStatement insertClassPreparedStatement = connection.prepareStatement(INSERT);
             insertClassPreparedStatement.setString(1, className);
@@ -70,7 +70,7 @@ public class ClassDAO {
         return true;
     }
 
-    public static byte[] getClassFromDB(String className) {
+    public static byte[] getClass(String className) {
         try (Connection connection = DriverManager.getConnection(DB_CONNECTION, DB_USERNAME, DB_PASSWORD)) {
             PreparedStatement insertClassPreparedStatement = connection.prepareStatement(FIND_BY_NAME);
             insertClassPreparedStatement.setString(1, className);
